@@ -4,6 +4,7 @@ const app = express();
 
 app.get('/', (req, res) => res.send('API RUNNING!'));
 
+// Define Routes Here:
 app.use('/api/github', require('./routes/api/github'));
 
 const PORT = process.env.PORT || 5000;
