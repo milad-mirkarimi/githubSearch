@@ -7,18 +7,21 @@
       </div>
     </div>
     <template v-if="usersList">
-      <div class="row" v-for="user in usersList" :key="user.id">
-        <div class="column">
-          <ResultTileControl 
-            :imgSrc="user.avatar_url"
-            :title="user.login" />
+      <transition-group
+        :css="false"
+        @before-enter="onBeforeEnter"
+        @enter="onEnter"
+      >
+        <div class="row" v-for="(user,index) in usersList" :key="user.id" :data-index="index">
+          <div class="column">
+            <ResultTileControl 
+              :imgSrc="user.avatar_url"
+              :title="user.login" />
+          </div>
         </div>
-      </div>
+      </transition-group>
     </template>
-
   </div>
-
-
 </template>
 
 <script>
@@ -50,7 +53,29 @@ export default {
 
         this.usersList.push({id, avatar_url, login });
       });
+    },
+    // Staggering Animation for tiles
+    onBeforeEnter (el) {
+      el.style.opacity = 0;
+      el.style.transform = "translate3d(-5%, 0, 0)";
+      el.style.transition = "all 0.25s ease-out";
+    },
+    onEnter (el, done) {
+      // Delay on each item
+      const delay = 120 * parseInt(el.dataset.index);
+      setTimeout(() => {
+        el.style.opacity = 1;
+        el.style.transform= "translate3d(0%, 0, 0)";
+
+        el.addEventListener('transitionend', onTransitionEnd);
+
+        function onTransitionEnd () {
+          el.removeAttribute('style');
+          el.removeEventListener('transitionend', onTransitionEnd);
+          done();
+        }
+      }, delay)
     }
-  }
+  },
 };
 </script>
