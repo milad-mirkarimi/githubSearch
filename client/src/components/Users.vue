@@ -9,14 +9,16 @@
 
 <script>
 import SearchControl from "@/components/shared/controls/SearchControl.vue";
+import axios from "axios";
 export default {
   name: "Users",
   components: {
     SearchControl
   },
   methods: {
-    getUsers(term){
-      console.log(term);
+    async getUsers(term){
+      const res = await axios.get(`/api/github/users/${term}`);
+      console.log(res.data);
     }
   }
 };
