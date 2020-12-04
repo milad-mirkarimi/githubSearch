@@ -1,8 +1,6 @@
 .dashboard {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    max-width: $base-page-width;
+    margin: 20px auto;
 }
   
 .dashboard div.column {

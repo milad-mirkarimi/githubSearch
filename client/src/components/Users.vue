@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="column">
-      <h1> Users Page </h1>
+      <h1>Search more than 63M users</h1>
     </div>
   </div>
 </template>
