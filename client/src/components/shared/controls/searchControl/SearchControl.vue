@@ -1,6 +1,6 @@
 <template>
 	<div class="search-control">
-		<input type="search" v-model="searchTerm">
+		<input type="search" v-model="searchTerm" placeholder="Search Github">
 		<button @click.prevent="emitSearch()">Search</button>
 	</div>
 </template>
@@ -13,7 +13,8 @@ export default {
 	}),
 	methods:{
 		emitSearch(){
-			this.$emit('emit-search',this.searchTerm)
+			this.$emit('emit-search',this.searchTerm);
+			// Listen from parent
 		}
 	}
 }

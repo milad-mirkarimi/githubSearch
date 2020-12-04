@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import SearchControl from "@/components/shared/controls/SearchControl.vue";
+import SearchControl from "@/components/shared/controls/searchControl/SearchControl.vue";
 import axios from "axios";
 export default {
   name: "Users",
@@ -16,8 +16,9 @@ export default {
     SearchControl
   },
   methods: {
-    async getUsers(term){
-      const res = await axios.get(`/api/github/users/${term}`);
+    async getUsers(searchTerm){
+      // call get users API - searchTerm passed from child
+      const res = await axios.get(`/api/github/users/${searchTerm}`);
       console.log(res.data);
     }
   }
