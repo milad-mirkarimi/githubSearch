@@ -2,7 +2,7 @@
   <div class="row">
     <div class="column">
       <h1>Search more than 63M users</h1>
-      <SearchControl />
+      <SearchControl @emit-search="getUsers" />
     </div>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
   name: "Users",
   components: {
     SearchControl
+  },
+  methods: {
+    getUsers(term){
+      console.log(term);
+    }
   }
 };
 </script>
