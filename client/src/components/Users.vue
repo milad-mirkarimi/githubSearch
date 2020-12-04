@@ -1,6 +1,8 @@
 <template>
-  <div class="home">
-    <h1> Home Page </h1>
+  <div class="row">
+    <div class="column">
+      <h1> Users Page </h1>
+    </div>
   </div>
 </template>
 
@@ -9,7 +11,7 @@
 // import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: "Home",
+  name: "Users",
   // components: {
   //   HelloWorld
   // }
