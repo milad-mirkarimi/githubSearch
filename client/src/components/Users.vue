@@ -6,7 +6,12 @@
         <SearchControl @emit-search="getUsers" :isDisabled="isProcessing" />
       </div>
     </div>
-    <span v-if="usersList">
+    <span v-if="usersList.length !== 0">
+      <div class="row">
+        <div class="info">
+          <p>Results for "{{ term }}"</p>
+        </div>
+      </div>
       <transition-group
         :css="false"
         @before-enter="onBeforeEnter"

@@ -27,6 +27,7 @@ export default {
 	methods:{
 		emitSearch(){
 			this.$emit('emit-search',this.searchTerm);
+			this.searchTerm = "";
 			// Listen from parent
 		},
 		trigger(){

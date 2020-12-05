@@ -65,3 +65,16 @@ body {
     padding: 10px;
     overflow-y: auto;
   }
+
+  .info{
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    padding-bottom: $base-spacing;
+    margin-bottom: $base-spacing;
+    min-width: 400px;
+  }
+
+  @media (max-width: $breakpoint-tablet) {
+    .info{
+        min-width: 320px ;
+    }
+}
