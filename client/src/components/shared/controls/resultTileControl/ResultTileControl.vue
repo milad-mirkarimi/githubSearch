@@ -1,12 +1,12 @@
 <template>
 	<div class="result-control">
 		<a :href="link" target="_blank" rel="noopener" >
-			<img :src="imgSrc" />
+			<img :src="imgSrc" :style= "[isForUsers ? {'width': '50px'} : {'width': '30px'}]" />
 		</a>
 		<a :href="link" target="_blank" rel="noopener" >
 			<p>{{ title }}</p>
 		</a>
-		<button>Repos</button>
+		<button v-if="isForUsers" @click="displayRepos()">Repos</button>
 	</div>
 </template>
 
@@ -25,6 +25,15 @@ export default {
 		link: {
 			type: String,
 			default: ''
+		},
+		isForUsers: {
+			type: Boolean,
+			default: false
+		}
+	},
+	methods: {
+		displayRepos(){
+			this.$emit('display-repos', true);
 		}
 	}
 }

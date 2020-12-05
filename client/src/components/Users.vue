@@ -17,6 +17,8 @@
             <ResultTileControl 
               :imgSrc="user.avatar_url"
               :title="user.login"
+              :isForUsers="true"
+              @display-repos = "showModal(user.login)"
               :link="user.html_url" />
           </div>
         </div>
@@ -29,12 +31,29 @@
         </div>
       </div>
     </span>
+    <modal name="repos"
+      :maxWidth="400"
+      :scrollable="true"
+      :adaptive="true">
+      <div v-if="reposList.length == 0">
+        <p>No repo found!</p>
+      </div>
+      <div v-else>
+        <div v-for="repo in reposList" :key="repo.id">
+          <ResultTileControl 
+            :title="repo.name"
+            :link="repo.html_url"
+            :imgSrc="repoIcon" />
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 
 <script>
 import SearchControl from "@/components/shared/controls/searchControl/SearchControl.vue";
 import ResultTileControl from "@/components/shared/controls/resultTileControl/ResultTileControl.vue";
+import repoIcon from "../assets/repo_icon.png";
 
 import axios from "axios";
 
@@ -47,7 +66,9 @@ export default {
   data: () => ({
     term: '',
     usersList: [],
-    isProcessing: false
+    reposList: [],
+    isProcessing: false,
+    repoIcon: repoIcon
 	}),
   methods: {
     getUsers(searchTerm){
@@ -60,14 +81,14 @@ export default {
       axios.get(`/api/github/users/${searchTerm}`)
         .then( res => {
           res.data.items.forEach(user => {
-          const { 
-            id,
-            html_url,
-            avatar_url,
-            login,
-          } = user
-          this.usersList.push({id, html_url, avatar_url, login });
-        });
+            const { 
+              id,
+              html_url,
+              avatar_url,
+              login,
+            } = user
+            this.usersList.push({id, html_url, avatar_url, login });
+          });
           this.isProcessing = false;
         })
         .catch( error => {
@@ -96,6 +117,30 @@ export default {
           done();
         }
       }, delay)
+    },
+    showModal(username){
+      // RESET
+      this.isProcessing = true;
+      this.reposList = [];
+      // Get repos of the given username
+      axios.get(`/api/github/repos/${username}`)
+        .then( res => {
+          res.data.forEach(repo => {
+            const {
+              id, 
+              name,
+              html_url
+            } = repo
+            this.reposList.push({ id, name, html_url });
+          });
+          console.log(this.reposList);
+          this.isProcessing = false;
+          this.$modal.show('repos')
+        })
+        .catch( error => {
+          console.log(error);
+          this.isProcessing = false;
+        })
     }
   },
 };
