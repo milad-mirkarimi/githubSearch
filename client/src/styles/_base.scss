@@ -43,9 +43,6 @@ body {
     color: $purple-lightest;
     text-decoration: none;
   
-    &:visited {
-      color: $white;
-    }
     &:focus {
       outline: none;
     }

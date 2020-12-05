@@ -1,7 +1,11 @@
 <template>
 	<div class="result-control">
-		<img :src="imgSrc" />
-		<p>{{ title }}</p>
+		<a :href="link" target="_blank" rel="noopener" >
+			<img :src="imgSrc" />
+		</a>
+		<a :href="link" target="_blank" rel="noopener" >
+			<p>{{ title }}</p>
+		</a>
 	</div>
 </template>
 
@@ -14,6 +18,10 @@ export default {
 			default: ''
 		},
 		title: {
+			type: String,
+			default: ''
+		},
+		link: {
 			type: String,
 			default: ''
 		}

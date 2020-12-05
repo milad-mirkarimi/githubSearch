@@ -9,6 +9,10 @@
         font-size: $base-font-size;
         font-weight: 600;
         padding: $base-spacing;
+
+        &:visited{
+            color: white;
+        }
     }
 }
 

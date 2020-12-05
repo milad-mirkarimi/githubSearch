@@ -16,7 +16,8 @@
           <div class="column">
             <ResultTileControl 
               :imgSrc="user.avatar_url"
-              :title="user.login" />
+              :title="user.login"
+              :link="user.html_url" />
           </div>
         </div>
       </transition-group>
@@ -47,11 +48,12 @@ export default {
       res.data.items.forEach(user => {
         const { 
           id,
+          html_url,
           avatar_url,
           login,
         } = user
 
-        this.usersList.push({id, avatar_url, login });
+        this.usersList.push({id, html_url, avatar_url, login });
       });
     },
     // Staggering Animation for tiles

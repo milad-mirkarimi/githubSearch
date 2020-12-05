@@ -26,6 +26,11 @@
         margin-left: 10px;
         font-weight: 600;;
     }
+    a{
+        &:hover{
+            color: $link-color;
+        }
+    }
 }
 
 @media (max-width: $breakpoint-tablet) {
