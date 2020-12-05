@@ -133,7 +133,6 @@ export default {
             } = repo
             this.reposList.push({ id, name, html_url });
           });
-          console.log(this.reposList);
           this.isProcessing = false;
           this.$modal.show('repos')
         })
