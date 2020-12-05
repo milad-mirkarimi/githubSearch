@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div :class="{'blur': isProcessing}">
     <div class="row">
       <div class="column">
         <h1>Search more than 63M users</h1>
-        <SearchControl @emit-search="getUsers" />
+        <SearchControl @emit-search="getUsers" :isDisabled="isProcessing" />
       </div>
     </div>
     <template v-if="usersList">
@@ -22,6 +22,13 @@
         </div>
       </transition-group>
     </template>
+    <template v-if="usersList.length == 0 && term && !isProcessing">
+      <div class="row">
+        <div class="column">
+          <p>No results for "<span>{{ term }}</span>"</p>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -38,23 +45,35 @@ export default {
     ResultTileControl
   },
   data: () => ({
-		usersList: []
+    term: '',
+    usersList: [],
+    isProcessing: false
 	}),
   methods: {
-    async getUsers(searchTerm){
+    getUsers(searchTerm){
+      // RESET
+      this.isProcessing = true;
+      this.term = searchTerm;
       this.usersList = [];
-      // call get users API - searchTerm passed from child
-      const res = await axios.get(`/api/github/users/${searchTerm}`);
-      res.data.items.forEach(user => {
-        const { 
-          id,
-          html_url,
-          avatar_url,
-          login,
-        } = user
 
-        this.usersList.push({id, html_url, avatar_url, login });
-      });
+      // call get users API - searchTerm passed from child
+      axios.get(`/api/github/users/${searchTerm}`)
+        .then( res => {
+          res.data.items.forEach(user => {
+          const { 
+            id,
+            html_url,
+            avatar_url,
+            login,
+          } = user
+          this.usersList.push({id, html_url, avatar_url, login });
+        });
+          this.isProcessing = false;
+        })
+        .catch( error => {
+          console.log(error);
+          this.isProcessing = false;
+        })
     },
     // Staggering Animation for tiles
     onBeforeEnter (el) {
