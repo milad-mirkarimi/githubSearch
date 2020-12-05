@@ -1,6 +1,6 @@
 <template>
 	<div class="sort-control">
-		<button>Sort: <span>best match ></span></button>
+		<button>Sort: <span>best match <i class="fa fa-chevron-down"></i></span></button>
 	</div>
 </template>
 
