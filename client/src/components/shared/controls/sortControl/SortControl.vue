@@ -74,6 +74,9 @@ export default {
             )
 
         }
-    }
+    },
+     beforeDestroy(){
+         this.$off('selected-sort-changed');
+     }
 }
 </script>
