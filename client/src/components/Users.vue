@@ -6,7 +6,7 @@
         <SearchControl @emit-search="getUsers" :isDisabled="isProcessing" />
       </div>
     </div>
-    <template v-if="usersList">
+    <span v-if="usersList">
       <transition-group
         :css="false"
         @before-enter="onBeforeEnter"
@@ -21,14 +21,14 @@
           </div>
         </div>
       </transition-group>
-    </template>
-    <template v-if="usersList.length == 0 && term && !isProcessing">
+    </span>
+    <span v-if="usersList.length == 0 && term && !isProcessing">
       <div class="row">
         <div class="column">
           <p>No results for "<span>{{ term }}</span>"</p>
         </div>
       </div>
-    </template>
+    </span>
   </div>
 </template>
 
