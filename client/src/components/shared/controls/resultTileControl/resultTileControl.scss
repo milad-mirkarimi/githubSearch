@@ -1,5 +1,6 @@
 .result-control{
     display: flex;
+    align-items: center;
     flex-direction: row;
     min-width: 400px;
     padding: 10px;
@@ -19,6 +20,11 @@
         width: 50px;
         border-radius: 50%;
         border:1px solid $green;
+    }
+
+    p{
+        margin-left: 10px;
+        font-weight: 600;;
     }
 }
 

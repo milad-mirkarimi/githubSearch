@@ -1,7 +1,7 @@
 <template>
 	<div class="result-control">
 		<img :src="imgSrc" />
-		<h4>{{ title }}</h4>
+		<p>{{ title }}</p>
 	</div>
 </template>
 
