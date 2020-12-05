@@ -6,6 +6,7 @@
 		<a :href="link" target="_blank" rel="noopener" >
 			<p>{{ title }}</p>
 		</a>
+		<button>Repos</button>
 	</div>
 </template>
 
