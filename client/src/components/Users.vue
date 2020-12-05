@@ -3,14 +3,19 @@
     <div class="row">
       <div class="column">
         <h1>Search more than 63M users</h1>
-        <SearchControl @emit-search="getUsers" :isDisabled="isProcessing" />
+        <SearchControl 
+          @emit-search="getUsers" 
+          :isDisabled="isProcessing" />
       </div>
     </div>
     <span>
       <div class="row" v-if="usersList.length !== 0">
         <div class="info">
           <p>Results for "{{ term }}"</p>
-          <SortControl />
+          <SortControl
+            :defaultSort="defaultSort"
+            @selected-sort-changed="callSort"
+            :sorts="sorts" />
         </div>
       </div>
       <transition-group
@@ -76,9 +81,24 @@ export default {
     usersList: [],
     reposList: [],
     isProcessing: false,
-    repoIcon: repoIcon
+    repoIcon: repoIcon,
+    sorts: [
+      {
+        name: 'followers'
+      },
+      {
+        name: 'repositories'
+      },
+      {
+        name: 'joined'
+      },
+    ],
+    defaultSort: 'joined'
 	}),
   methods: {
+    callSort(sort){
+      console.log(sort);
+    },
     getUsers(searchTerm){
       // RESET
       this.isProcessing = true;

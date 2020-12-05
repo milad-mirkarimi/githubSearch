@@ -3,7 +3,7 @@
 		<button 
             @click="displayList = !displayList" 
             v-click-outside="hide" >
-            Sort: <span>best match <i class="fa fa-chevron-down"></i></span>
+            Sort: <span>{{ selected }} <i class="fa fa-chevron-down"></i></span>
         </button>
         <transition 
             @before-enter="beforeEnter"
@@ -11,9 +11,7 @@
             @leave="leave"
             :css="false" >
             <ul v-if="displayList">
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
+                <li @click="selected = sort.name" v-for="(sort,i) in sorts" :key="i" >{{sort.name}}</li>
             </ul>
         </transition>
 	</div>
@@ -27,13 +25,36 @@ export default {
     directives: {
         ClickOutside
     },
+    props: {
+        sorts: {
+            type: Array,
+            default: () => []
+        },
+        defaultSort: {
+            type: String,
+            default: '',
+            required: true
+        }
+    },
 	data: () => ({
-		displayList: false
-	}),
+        displayList: false,
+        selected: ""
+    }),
+    created(){
+        this.selected = this.defaultSort;
+    },
+    watch: {
+        selected: function (newVal, oldVal) {
+            if(oldVal === newVal || oldVal === '')
+                return;
+            this.$emit('selected-sort-changed', this.selected);    
+        }
+    },
 	methods:{
 		hide(){
             this.displayList = false;
         },
+        // Drop down open and close animation events
         beforeEnter(el){
             el.style.opacity = 0;
             el.style.height = '0px';
