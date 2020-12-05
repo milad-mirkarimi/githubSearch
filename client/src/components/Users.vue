@@ -10,6 +10,7 @@
       <div class="row" v-if="usersList.length !== 0">
         <div class="info">
           <p>Results for "{{ term }}"</p>
+          <SortControl />
         </div>
       </div>
       <transition-group
@@ -58,6 +59,7 @@
 <script>
 import SearchControl from "@/components/shared/controls/searchControl/SearchControl.vue";
 import ResultTileControl from "@/components/shared/controls/resultTileControl/ResultTileControl.vue";
+import SortControl from "@/components/shared/controls/sortControl/SortControl.vue";
 import repoIcon from "../assets/repo_icon.png";
 
 import axios from "axios";
@@ -66,7 +68,8 @@ export default {
   name: "Users",
   components: {
     SearchControl,
-    ResultTileControl
+    ResultTileControl,
+    SortControl
   },
   data: () => ({
     term: '',

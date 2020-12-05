@@ -71,6 +71,9 @@ body {
     padding-bottom: $base-spacing;
     margin-bottom: $base-spacing;
     min-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   @media (max-width: $breakpoint-tablet) {
