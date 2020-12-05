@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import Nav from "@/components/shared/Nav.vue";
+  import Nav from "@/components/shared/nav/Nav.vue";
 
   export default {
     components: {
