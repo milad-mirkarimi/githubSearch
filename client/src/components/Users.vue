@@ -6,8 +6,8 @@
         <SearchControl @emit-search="getUsers" :isDisabled="isProcessing" />
       </div>
     </div>
-    <span v-if="usersList.length !== 0">
-      <div class="row">
+    <span>
+      <div class="row" v-if="usersList.length !== 0">
         <div class="info">
           <p>Results for "{{ term }}"</p>
         </div>
