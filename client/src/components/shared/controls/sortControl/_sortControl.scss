@@ -1,21 +1,48 @@
 .sort-control {
-
+    position: relative;
     span{
         color: $link-color;
     }
     button {
         background-color: $grey-lightest;
         color: $dark-grey;
-        position: relative;
         padding: 4px 12px;
         font-size: $base-font-size;
         cursor: pointer;
         border-radius: 6px;
         border: 1px solid rgba(0,0,0,.2);
-
+        width: 150px;
         &:hover{
             background-color: $purple-pale;
             transition: .3s;
+        }
+    }
+
+    ul{
+        position: absolute;
+        left: 0;
+        top: 25px;
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: 6px;
+        width: 100%;
+        z-index: 1;
+        background: white;
+        padding: 5px;
+
+        li{
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+
+            &:last-child{
+                border: none;
+            }
+
+            &:hover{
+                background: $grey-lightest;
+                transition: .2s;
+            }
         }
     }
 }

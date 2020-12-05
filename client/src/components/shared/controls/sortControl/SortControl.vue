@@ -1,21 +1,20 @@
 <template>
 	<div class="sort-control">
-		<button>Sort: <span>best match <i class="fa fa-chevron-down"></i></span></button>
+		<button @click="displayList = !displayList">Sort: <span>best match <i class="fa fa-chevron-down"></i></span></button>
+	    <ul v-if="displayList">
+            <li>A</li>
+            <li>B</li>
+            <li>C</li>
+        </ul>
 	</div>
 </template>
 
 <script>
 export default {
 	name: "SortControl",
-	// props: {
-	// 	isDisabled: {
-	// 		type: Boolean,
-	// 		default: false
-	// 	}
-	// },
-	// data: () => ({
-	// 	searchTerm: ''
-	// }),
+	data: () => ({
+		displayList: false
+	}),
 	// methods:{
 	// 	emitSearch(){
 	// 		this.$emit('emit-search',this.searchTerm);
