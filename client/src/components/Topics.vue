@@ -37,8 +37,9 @@
     </span>
     <span v-if="topicsList.length == 0 && term && !isProcessing">
       <div class="row">
-        <div class="column">
+        <div class="info">
           <p>No results for "<span>{{ term }}</span>"</p>
+          <CheckboxControl @checkbox-onChange="toggleFeaturedTopics" :updateValue="isFeatured" />
         </div>
       </div>
     </span>
