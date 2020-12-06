@@ -3,8 +3,8 @@ const path = require('path')
 const history = require('connect-history-api-fallback');
 
 const app = express();
-app.use(history());
-app.use(express.static('src'));
+// app.use(history());
+// app.use(express.static('src'));
 // Init Middleware
 app.use(express.json({ extended: false }));
 
@@ -16,11 +16,9 @@ app.use(express.json({ extended: false }));
 app.use('/api/github', require('./routes/api/github'));
 
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/dist'))
+    app.use(express.static(__dirname + '/public'))
 
-    app.get('*', (req, res)=> {
-        res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-    })
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
 
 const PORT = process.env.PORT || 5000;
