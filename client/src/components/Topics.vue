@@ -69,7 +69,7 @@ export default {
         name: 'created at'
       }
     ],
-    defaultSort: 'joined'
+    defaultSort: 'name'
 	}),
   methods: {
     callSort(sort){
@@ -81,7 +81,7 @@ export default {
       this.term = searchTerm;
       this.topicsList = [];
 
-      this.defaultSort = sort ? sort : 'joined';
+      this.defaultSort = sort ? sort : 'name';
       // call get topics API - searchTerm passed from child
       axios.get(`/api/github/topics/${searchTerm}`)
         .then( res => {
