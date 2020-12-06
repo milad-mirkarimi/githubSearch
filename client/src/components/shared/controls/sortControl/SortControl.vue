@@ -56,14 +56,14 @@ export default {
         },
         // Drop down open and close animation events
         beforeEnter(el){
-            el.style.opacity = 0;
+            el.style.opacity = .5;
             el.style.height = '0px';
         },
         enter(el, done){
             Velocity(
                 el,
                 { opacity: 1, height: '90px'},
-                { duration: 250, easing: [90, 10], complete: done}
+                { duration: 500, easing: [90, 10], complete: done}
             )
         },
         leave(el, done){
