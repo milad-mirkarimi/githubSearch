@@ -1,6 +1,9 @@
 {
   "name": "githubsearch",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.16.0"
+  },
   "description": "Search Github",
   "main": "server.js",
   "scripts": {
