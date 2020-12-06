@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Users from "../components/Users.vue";
 import Topics from "../components/Topics.vue";
+import NotFoundComponent from "../components/NotFoundComponent.vue";
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,9 @@ const routes = [
     path: "/topics",
     name: "Topics",
     component: Topics
+  },
+  { path: '*', 
+    component: NotFoundComponent 
   }
 ];
 
