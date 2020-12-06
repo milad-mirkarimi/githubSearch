@@ -51,12 +51,15 @@
 
     .result-control__desc{
         margin-left: auto;
-        max-width: 200px;
+        max-width: 250px;
     }
 }
 
 @media (max-width: $breakpoint-tablet) {
     .result-control{
         min-width: 320px ;
+    }
+    .result-control__desc{
+        width: 200px;
     }
 }
