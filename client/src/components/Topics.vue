@@ -83,16 +83,14 @@ export default {
 
       this.defaultSort = sort ? sort : 'joined';
       // call get topics API - searchTerm passed from child
-      axios.get(`/api/github/topics/${searchTerm}/${ sort ? sort : this.defaultSort}`)
+      axios.get(`/api/github/topics/${searchTerm}`)
         .then( res => {
           res.data.items.forEach(topic => {
             const { 
-              id,
-              html_url,
-              avatar_url,
-              login,
+              name,
+              short_description
             } = topic
-            this.topicsList.push({id, html_url, avatar_url, login });
+            this.topicsList.push({ name, short_description });
           });
           this.isProcessing = false;
         })
