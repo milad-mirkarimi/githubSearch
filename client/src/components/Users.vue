@@ -43,7 +43,7 @@
       </div>
     </span>
     <modal name="repos"
-      :maxWidth="400"
+      :maxWidth="450"
       :scrollable="true"
       :adaptive="true">
       <div v-if="reposList.length == 0">
