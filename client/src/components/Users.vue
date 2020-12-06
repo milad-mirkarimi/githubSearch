@@ -84,16 +84,19 @@ export default {
     repoIcon: repoIcon,
     sorts: [
       {
-        name: 'joined'
+        name: 'Joined',
+        value: 'joined'
       },
       {
-        name: 'followers'
+        name: 'Followers',
+        value: 'followers'
       },
       {
-        name: 'repositories'
+        name: 'Repos',
+        value: 'repositories'
       },
     ],
-    defaultSort: 'joined'
+    defaultSort: { name: 'Joined', value: 'joined'}
 	}),
   methods: {
     callSort(sort){
@@ -105,9 +108,9 @@ export default {
       this.term = searchTerm;
       this.usersList = [];
 
-      this.defaultSort = sort ? sort : 'joined';
+      this.defaultSort = sort ? sort : { name: 'Joined', value: 'joined'};
       // call get users API - searchTerm passed from child
-      axios.get(`/api/github/users/${searchTerm}/${ sort ? sort : this.defaultSort}`)
+      axios.get(`/api/github/users/${searchTerm}/${ sort ? sort.value : this.defaultSort.value}`)
         .then( res => {
           res.data.items.forEach(user => {
             const { 

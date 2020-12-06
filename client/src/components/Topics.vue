@@ -65,36 +65,42 @@ export default {
     isProcessing: false,
     sorts: [
       {
-        name: 'name'
+        name: 'Name',
+        value: 'name'
       },
       {
-        name: 'created at'
+        name: 'Created at',
+        value: 'created_at'
       }
     ],
-    defaultSort: 'name',
+    defaultSort: { name: 'Name', value: 'name'},
     hashIcon: hashIcon
 	}),
   methods: {
-    callSort(sort){
-      this.getTopics(this.term, sort);
+    callSort(sortType){
+      this.defaultSort = sortType;
+      this.topicsList.sort((a,b) => (a[sortType.value] > b[sortType.value]) ? 1 :
+                                    ((b[sortType.value] > a[sortType.value]) ? -1 : 0)); 
     },
-    getTopics(searchTerm, sort){
+    getTopics(searchTerm){
       // RESET
       this.isProcessing = true;
       this.term = searchTerm;
       this.topicsList = [];
+      this.defaultSort = { name: 'Name', value: 'name'};
 
-      this.defaultSort = sort ? sort : 'name';
       // call get topics API - searchTerm passed from child
       axios.get(`/api/github/topics/${searchTerm}`)
         .then( res => {
           res.data.items.forEach(topic => {
             const { 
               name,
-              short_description
+              short_description,
+              created_at
             } = topic
-            this.topicsList.push({ name, short_description });
+            this.topicsList.push({ name, short_description, created_at });
           });
+          this.callSort(this.defaultSort);
           this.isProcessing = false;
         })
         .catch( error => {

@@ -3,7 +3,7 @@
 		<button 
             @click="displayList = !displayList" 
             v-click-outside="hide" >
-            Sort: <span>{{ selected }} <i class="fa fa-chevron-down"></i></span>
+            Sort: <span>{{ selected.name }} <i class="fa fa-chevron-down"></i></span>
         </button>
         <transition 
             @before-enter="beforeEnter"
@@ -11,7 +11,7 @@
             @leave="leave"
             :css="false" >
             <ul v-if="displayList">
-                <li @click="selected = sort.name" v-for="(sort,i) in sorts" :key="i" >{{sort.name}}</li>
+                <li @click="selected = sort" v-for="(sort,i) in sorts" :key="i" >{{sort.name}}</li>
             </ul>
         </transition>
 	</div>
@@ -31,8 +31,7 @@ export default {
             default: () => []
         },
         defaultSort: {
-            type: String,
-            default: '',
+            type: Object,
             required: true
         }
     },
