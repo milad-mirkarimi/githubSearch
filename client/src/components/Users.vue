@@ -4,7 +4,7 @@
       <div class="column">
         <h1>Search more than 63M users</h1>
         <SearchControl 
-          @emit-search="getUsers" 
+          @emit-search="searchClickedHandler" 
           :isDisabled="isProcessing" />
       </div>
     </div>
@@ -97,10 +97,25 @@ export default {
       },
     ],
     defaultSort: { name: 'Joined', value: 'joined'}
-	}),
+  }),
+  mounted(){
+    const {search, sort } = this.$route.query
+    if(search){
+      this.term = search;
+      this.isFeatured = this.sorts.find(item => item.value === sort);
+      this.getUsers(this.term, this.isFeatured);
+    }
+  },
   methods: {
     callSort(sort){
-      this.getUsers(this.term, sort);
+      this.defaultSort = sort;
+      this.$router.push({ path: '/', query: { search: this.term, sort: this.defaultSort.value }});
+      this.getUsers(this.term, this.defaultSort);
+    },
+    searchClickedHandler(searchTerm){
+      this.defaultSort = { name: 'Joined', value: 'joined'}
+      this.$router.push({ path: '/', query: { search: searchTerm, sort: this.defaultSort.value }});
+      this.getUsers(searchTerm, this.defaultSort);
     },
     getUsers(searchTerm, sort){
       // RESET
@@ -108,9 +123,9 @@ export default {
       this.term = searchTerm;
       this.usersList = [];
 
-      this.defaultSort = sort ? sort : { name: 'Joined', value: 'joined'};
+      this.defaultSort = sort
       // call get users API - searchTerm passed from child
-      axios.get(`/api/github/users/${searchTerm}/${ sort ? sort.value : this.defaultSort.value}`)
+      axios.get(`/api/github/users/${searchTerm}/${this.defaultSort.value}`)
         .then( res => {
           res.data.items.forEach(user => {
             const { 
