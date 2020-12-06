@@ -1,11 +1,15 @@
 const express = require('express');
+const history = require('connect-history-api-fallback');
 
 const app = express();
-
+app.use(history());
+app.use(express.static('src'));
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => res.send('API RUNNING!'));
+app.get('/', (req, res) => {
+    res.sendFile('src/index.html');
+});
 
 // Define Routes Here:
 app.use('/api/github', require('./routes/api/github'));
