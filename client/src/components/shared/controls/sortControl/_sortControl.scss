@@ -5,14 +5,11 @@
         font-weight: 600;
     }
     button {
-        background-color: white;
-        color: $dark-grey;
+        @extend .btn;
         padding: 4px 12px;
         font-size: $base-font-size;
-        cursor: pointer;
-        border-radius: 6px;
-        border: 1px solid rgba(0,0,0,.2);
         width: 145px;
+        
         &:hover{
             background-color: $grey-lightest;
             transition: .3s;

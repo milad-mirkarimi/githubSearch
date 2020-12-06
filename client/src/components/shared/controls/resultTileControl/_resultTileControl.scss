@@ -32,16 +32,10 @@
         }
     }
     button {
+        @extend .btn;
         margin-left: auto;
-        color: $dark-grey;
-        background-color: white;
         padding: 3px 10px;
         font-size: 12px;
-        line-height: 20px;
-        white-space: nowrap;
-        cursor: pointer;
-        border-radius: 6px;
-        border: 1px solid rgba(0,0,0,.2);
 
         &:hover{
             background-color: $grey-lightest;

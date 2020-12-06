@@ -76,6 +76,16 @@ body {
     justify-content: space-between;
   }
 
+  .btn{
+    border-radius: 6px;
+    color: $dark-grey;
+    background-color: white;
+    line-height: 20px;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,.2);
+  }
+
   @media (max-width: $breakpoint-tablet) {
     .info{
         min-width: 320px ;
