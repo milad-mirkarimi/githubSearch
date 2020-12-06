@@ -16,6 +16,10 @@
     }
 }
 
+.green{
+    color: $green;
+}
+
 @media (max-width: $breakpoint-tablet) {
     #nav{
         padding-left: 0px ;
