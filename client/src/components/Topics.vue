@@ -2,7 +2,7 @@
   <div :class="{'blur': isProcessing}">
     <div class="row">
       <div class="column">
-        <h1>search for topics associated with repos</h1>
+        <h1>search for topics on Github</h1>
         <SearchControl 
           @emit-search="getTopics" 
           :isDisabled="isProcessing" />
@@ -23,12 +23,13 @@
         @before-enter="onBeforeEnter"
         @enter="onEnter"
       >
-        <div class="row" v-for="(topic,index) in topicsList" :key="topic.id" :data-index="index">
+        <div class="row" v-for="(topic,index) in topicsList" :key="index" :data-index="index">
           <div class="column">
             <ResultTileControl 
-              :imgSrc="topic.avatar_url"
-              :title="topic.login"
-              :link="topic.html_url" />
+              :imgSrc="hashIcon"
+              :link="`https://github.com/topics/${topic.name}`"
+              :description="topic.short_description"
+              :title="topic.name" />
           </div>
         </div>
       </transition-group>
@@ -47,6 +48,7 @@
 import SearchControl from "@/components/shared/controls/searchControl/SearchControl.vue";
 import ResultTileControl from "@/components/shared/controls/resultTileControl/ResultTileControl.vue";
 import SortControl from "@/components/shared/controls/sortControl/SortControl.vue";
+import hashIcon from "../assets/hash-icon.png";
 
 import axios from "axios";
 
@@ -69,7 +71,8 @@ export default {
         name: 'created at'
       }
     ],
-    defaultSort: 'name'
+    defaultSort: 'name',
+    hashIcon: hashIcon
 	}),
   methods: {
     callSort(sort){

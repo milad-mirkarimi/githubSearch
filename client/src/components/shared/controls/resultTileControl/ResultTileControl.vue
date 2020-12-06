@@ -7,6 +7,7 @@
 			<p>{{ title }}</p>
 		</a>
 		<button v-if="isForUsers" @click="displayRepos()">Repos</button>
+		<p class="result-control__desc" v-if="description">{{ description }}</p>
 	</div>
 </template>
 
@@ -29,6 +30,10 @@ export default {
 		isForUsers: {
 			type: Boolean,
 			default: false
+		},
+		description: {
+			type: String,
+			default: ''
 		}
 	},
 	methods: {
