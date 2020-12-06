@@ -56,4 +56,31 @@ router.get('/repos/:username', (req, res) => {
         res.status(500).send('Server error')
     }
 })
+
+// GET api/github/topics/:topic
+// Get topics associated to repos from Github
+// @access public
+router.get('/topics/:topic', (req, res) => {
+    try {
+        const options = {
+            uri: `https://api.github.com/search/topics?q=${req.params.topic}&per_page=10
+            &client_id=${config.get('githubClientId')}&client_secret=${config.get('githubSecret')}`,
+            method: 'GET',
+            headers: { 'user-agent': 'node.js', 'Accept': 'application/vnd.github.mercy-preview+json' }
+        };
+
+        request(options, (error, response, body) => {
+            if (error) console.error(error)
+
+            if (response.statusCode !== 200) {
+                return res.status(404).json({ msg: 'No Topic found!' });
+            }
+
+            res.json(JSON.parse(body));
+        })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error')
+    }
+})
 module.exports = router;
