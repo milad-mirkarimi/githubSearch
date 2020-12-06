@@ -12,6 +12,7 @@
       <div class="row" v-if="topicsList.length !== 0">
         <div class="info">
           <p>Results for "{{ term }}"</p>
+          <CheckboxControl />
           <SortControl
             :defaultSort="defaultSort"
             @selected-sort-changed="callSort"
@@ -48,6 +49,7 @@
 import SearchControl from "@/components/shared/controls/searchControl/SearchControl.vue";
 import ResultTileControl from "@/components/shared/controls/resultTileControl/ResultTileControl.vue";
 import SortControl from "@/components/shared/controls/sortControl/SortControl.vue";
+import CheckboxControl from "@/components/shared/controls/checkboxControl/CheckboxControl.vue";
 import hashIcon from "../assets/hash-icon.png";
 
 import axios from "axios";
@@ -57,7 +59,8 @@ export default {
   components: {
     SearchControl,
     ResultTileControl,
-    SortControl
+    SortControl,
+    CheckboxControl
   },
   data: () => ({
     term: '',

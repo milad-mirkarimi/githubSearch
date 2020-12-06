@@ -1,0 +1,97 @@
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
+}
+  
+.checkbox-inner {
+    position: relative;
+    display: inline-block;
+    width: 1.3rem;
+    min-width: 1.3rem;
+    height: 1.3rem;
+    margin-right: 5px;
+    padding: 0;
+    border-radius: 0.4rem;
+    background-color:white;
+    line-height: 0;
+}
+  
+  
+.checkbox-input {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.3rem;
+    height: 1.3rem;
+    border: none;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+  
+.checkbox-background {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 0.4rem;
+    border: 1px solid #67747C;
+    box-shadow: 
+        0px 3px 16px rgba(2, 0, 185, 0.08),
+        0px 3px 4px rgba(2, 0, 185, 0.1);
+    top: 0;
+    left: 0;
+    transition:
+        background-color 90ms cubic-bezier(.4,0,.6,1) 0ms,
+        border-color 90ms cubic-bezier(.4,0,.6,1) 0ms;
+    pointer-events: none;
+}
+  
+.checkbox-inner.is-on .checkbox-background {
+    background-color: $dark-grey;
+    border-color: $dark-grey;
+}
+  
+.checkbox-checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.checkbox-inner.is-on .checkbox-checkmark {
+    transition: 
+    opacity .18s cubic-bezier(0,0,.2,1) 0ms,
+    transform .18s cubic-bezier(0,0,.2,1) 0ms;
+    opacity: 1;
+}
+  
+.checkbox-checkmark-path {
+    transition: stroke-dashoffset .35s cubic-bezier(.4,0,.6,1) 0ms;
+    stroke: white;
+    stroke-width: 3.12px;
+    stroke-dashoffset: 29.78334;
+    stroke-dasharray: 29.78334;
+}
+  
+.checkbox-inner.is-on .checkbox-checkmark-path {
+    stroke-dashoffset: 0;
+}
+  
+.checkbox-mixedmark {
+    width: 100%;
+    height: 2px;
+    transform: scaleX(0) rotate(0deg);
+    transition:
+    opacity 90ms cubic-bezier(.4,0,.6,1) 0ms,
+    transform 90ms cubic-bezier(.4,0,.6,1) 0ms;
+    opacity: 0;
+}
