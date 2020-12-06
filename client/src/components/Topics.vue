@@ -4,7 +4,7 @@
       <div class="column">
         <h1>search for topics on Github</h1>
         <SearchControl 
-          @emit-search="getTopics" 
+          @emit-search="searchClickedHandler" 
           :isDisabled="isProcessing" />
       </div>
     </div>
@@ -12,7 +12,7 @@
       <div class="row" v-if="topicsList.length !== 0">
         <div class="info">
           <p>Results for "{{ term }}"</p>
-          <CheckboxControl />
+          <CheckboxControl @checkbox-onChange="toggleFeaturedTopics" :updateValue="isFeatured" />
           <SortControl
             :defaultSort="defaultSort"
             @selected-sort-changed="callSort"
@@ -64,6 +64,7 @@ export default {
   },
   data: () => ({
     term: '',
+    isFeatured: false,
     topicsList: [],
     isProcessing: false,
     sorts: [
@@ -78,22 +79,40 @@ export default {
     ],
     defaultSort: { name: 'Name', value: 'name'},
     hashIcon: hashIcon
-	}),
+  }),
+  mounted(){
+    const {search, featured } = this.$route.query
+    if(search){
+      this.term = search;
+      this.isFeatured = featured === 'true';
+      this.getTopics(this.term, this.isFeatured);
+    }
+  },
   methods: {
+    searchClickedHandler(searchTerm){
+      this.$router.push({ path: 'topics', query: { search: searchTerm, featured: this.isFeatured }});
+      this.getTopics(searchTerm, this.isFeatured);
+    },
+    toggleFeaturedTopics(isFeatured){
+      this.isFeatured = isFeatured;
+      this.$router.push({ path: 'topics', query: { search: this.term, featured: this.isFeatured }});
+      this.getTopics(this.term, this.isFeatured)
+    },
     callSort(sortType){
       this.defaultSort = sortType;
       this.topicsList.sort((a,b) => (a[sortType.value] > b[sortType.value]) ? 1 :
                                     ((b[sortType.value] > a[sortType.value]) ? -1 : 0)); 
     },
-    getTopics(searchTerm){
+    getTopics(searchTerm, isFeatured){
       // RESET
       this.isProcessing = true;
       this.term = searchTerm;
+      this.isFeatured = isFeatured;
       this.topicsList = [];
       this.defaultSort = { name: 'Name', value: 'name'};
 
       // call get topics API - searchTerm passed from child
-      axios.get(`/api/github/topics/${searchTerm}`)
+      axios.get(`/api/github/topics/${searchTerm}/${this.isFeatured}`)
         .then( res => {
           res.data.items.forEach(topic => {
             const { 

@@ -2,11 +2,12 @@
 	<div class="checkbox-container">
 		<div 
 		class="checkbox-inner"
-		:class="{ 'is-on': vm }">
+		:class="{ 'is-on': selected }">
 			<input
 					class="checkbox-input"
 					type="checkbox"
-					v-model="vm" />
+					v-bind:checked="selected" 
+					@change="handleChange" />
 
       <div class="checkbox-background">
         <svg class="checkbox-checkmark" viewBox="0 0 24 24">
@@ -23,14 +24,22 @@
 
 export default {
 	name: "CheckboxControl",
+	props: {
+		updateValue: {
+			type: Boolean,
+			default: false
+		}
+	},
 	data: () => ({
-		vm: false,
-		isfocused: false,
+		selected: false
 	}),
-	watch: {
-		vm(newVal, oldVal) {
-			console.log(newVal);
-			console.log(oldVal);
+	created(){
+		this.selected = this.updateValue
+	},
+	methods: {
+		handleChange(){
+			this.selected = !this.selected;
+			this.$emit('checkbox-onChange', this.selected);
 		}
 	}
 }
